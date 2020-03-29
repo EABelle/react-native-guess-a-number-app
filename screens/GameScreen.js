@@ -3,12 +3,13 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     Alert
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import NumberContainer from "../components/NumberContainer";
 import Card from "../components/Card";
 import * as DefaultStyles from '../constants/defaultStyles'
+import MainButton from "../components/MainButton";
 
 const Direction = {
     LOWER: 'lower',
@@ -68,8 +69,12 @@ const GameScreen = props => {
             <Text style={DefaultStyles.bodyText}>Opponent's guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <Button title="LOWER" onPress={nextGuessHandler.bind(this, Direction.LOWER)} />
-                <Button title="GREATER" onPress={nextGuessHandler.bind(this, Direction.GREATER)} />
+                <MainButton onPress={nextGuessHandler.bind(this, Direction.LOWER)}>
+                    <Ionicons name="md-remove" size={24} color="white" />
+                </MainButton>
+                <MainButton onPress={nextGuessHandler.bind(this, Direction.GREATER)}>
+                    <Ionicons name="md-add" size={24} color="white" />
+                </MainButton>
             </Card>
         </View>
     )
@@ -85,8 +90,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: 20,
-        width: 300,
-        maxWidth: '80%'
+        width: 400,
+        maxWidth: '90%'
     }
 });
 
