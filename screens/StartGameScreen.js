@@ -11,6 +11,7 @@ import {
 import Card from "../components/Card";
 import Input from "../components/Input";
 import { accent, primary } from '../constants/colors';
+import NumberContainer from "../components/NumberContainer";
 
 const StartGameScreen = props => {
 
@@ -33,19 +34,28 @@ const StartGameScreen = props => {
             Alert.alert(
                 'Invalid number!',
                 'Number must be a number between 1 and 99.',
-                [{text: 'Okay ', style: 'destructive', onPress: resetInputHandler}]
+                [{text: 'Okay', style: 'destructive', onPress: resetInputHandler}]
             );
             return;
         }
         setConfirmed(true);
         setSelectedNumber(chosenNumber);
         setEnteredValue('');
+        Keyboard.dismiss();
     };
 
     let confirmedOutput;
 
     if (confirmed) {
-        confirmedOutput = <Text>Chosen number: {selectedNumber}</Text>
+        confirmedOutput = (
+            <Card style={styles.summaryContainer}>
+                <Text>You selected</Text>
+                <NumberContainer>
+                    {selectedNumber}
+                </NumberContainer>
+                <Button title="START GAME" onPress={() => props.onStartGame(selectedNumber)}/>
+            </Card>
+        );
     }
 
     return (
@@ -101,6 +111,10 @@ const styles = StyleSheet.create({
     input: {
         width: 50,
         textAlign: 'center'
+    },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center'
     }
 });
 
